@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pendaftaran Munaqosyah Santri 2026</title>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #283618;
+      background: #f5f5f5; /* abu2 biar kartu ngambang */
+      padding: 30px 25px;
+      margin: 0;
+    }
+
+    /* 1. KARTU NGAMBANG */
+   .container-form {
+      background: #FFF8E7; /* Cream palet */
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #606C38; /* Sage gelap */
+    }
+
+   .judul-utama {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #9CAF88;
+      font-size: 28px;
+      font-weight: 700;
+      color: #283618;
+      position: sticky;
+      top: 0;
+      background: #FFF8E7;
+      z-index: 100;
+    }
+
+   .logo-header img {
+      height: auto;
+      width: 60px;
+      margin: 0 4px;
+      vertical-align: middle;
+    }
+
+    /* 2. INPUT ADA DIMENSI */
+    input, select {
+      width: 100%;
+      padding: 12px 15px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      border: 2px solid #9CAF88;
+      background: white;
+      font-size: 15px;
+      transition: all 0.3s;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    input:focus, select:focus {
+      border-color: #C65D00;
+      box-shadow: 0 0 0 4px rgba(198, 93, 0, 0.2), inset 0 1px 2px rgba(0,0,0,0.06);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    input[readonly] {
+      background: #EDE3D3;
+      color: #283618;
+      cursor: not-allowed;
+    }
+
+   .identitasLembaga {
+      padding-bottom: 8px;
+      margin-top: 30px;
+      border-bottom: 2px solid #9CAF88;
+      font-size: 18px;
+      font-weight: 600;
+      color: #3D5327;
+      position: sticky;
+      top: 80px;
+      background: #FFF8E7;
+      z-index: 90;
+    }
+
+    .daftarSantri {
+      padding-bottom: 8px;
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #3D5327;
+      position: sticky;
+      top: 130px;
+      background: #FFF8E7;
+      z-index: 80;
+    }
+
+    /* 3. TOMBOL RAMPING + 3D */
+   .tambahSantri,.simpanData {
+      padding: 14px 40px;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      width: auto;
+      display: block;
+      margin: 15px auto 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+   .tambahSantri {
+      background: linear-gradient(135deg, #5a8331, #0d1607);
+      box-shadow: 0 4px 12px rgba(87, 160, 9, 0.4);
+    }
+   .tambahSantri:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(156, 175, 136, 0.5); }
+   .tambahSantri:active { transform: translateY(1px); }
+
+   .simpanData {
+      background: linear-gradient(135deg, #C65D00, #A94C00);
+      box-shadow: 0 4px 12px rgba(198, 93, 0, 0.4);
+    }
+   .simpanData:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(198, 93, 0, 0.5); }
+   .simpanData:active { transform: translateY(1px); }
+
+   .wrapper {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
+   .kiri,.kanan { width: 50%; }
+
+    /* 4. TABEL ANTI FLAT */
+   .table-wrapper {
+      margin-top: 15px;
+      border-radius: 12px;
+      overflow-x: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #9CAF88;
+      z-index: 0;
+      max-height: 40vh;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1100px;
+      background: white;
+    }
+
+    th {
+      background: #3D5327;
+      color: white;
+      padding: 12px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      position: sticky;
+      top: 0px;
+      z-index: 0;
+    }
+
+    td {
+      padding: 8px;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    tr:nth-child(even) td { background: #F9F7F3;} 
+    tr:hover td { background: rgba(198,93,0,0.08); transition: 0.2s; }
+
+    td input, td select {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 14px;
+      width: 100%;
+      box-shadow: none;
+    }
+    td input:focus, td select:focus {
+      border-color: #C65D00;
+      box-shadow: 0 0 0 2px rgba(198,93,0,0.15);
+      transform: none;
+    }
+
+   .btn-hapus {
+      background: #E63946;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+   .btn-hapus:hover { background: #D62839; }
+
+    /* ERROR MERAH */
+   .error {
+      border: 2px solid #E63946!important;
+      background-color: #FFF0F0!important;
+      box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.2)!important;
+    }
+   .error-cell {
+      background-color: #FFF0F0!important;
+    }
+
+    @media (max-width: 900px) {
+     .wrapper { flex-direction: column; }
+     .kiri,.kanan { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-form"> <!-- INI KUNCINYA BIAR NGAMBANG -->
+ <h2 class="judul-utama">
+  <span>PENDAFTARAN MUNAQOSYAH SANTRI 2026</span>
+  <div class="logo-header">
+    <img src="https://drive.google.com/thumbnail?id=1czAiga44ktUJl2gmmWta906lQUyIXNMh&sz=w80">
+    <img src="https://drive.google.com/thumbnail?id=15aD27nI0gHQY6hfU89hpZ3HKPymZiPQJ&sz=w80">
+    <img src="https://drive.google.com/thumbnail?id=1dRonLssiVvCbBaQmIem5OMX4bAA9-mFd&sz=w80">
+  </div>
+</h2>
+
+  <h3 class="identitasLembaga">IDENTITAS LEMBAGA</h3>
+  <div class="wrapper">
+    <div class="kiri">
+      <label>ID Lembaga *</label>
+      <input list="daftarID" id="idLembaga" placeholder="Ketik ID atau nama lembaga...">
+      <datalist id="daftarID"></datalist>
+
+      <label>Nama Lembaga *</label>
+      <input type="text" id="namaLembaga" readonly>
+
+      <label>Asal Korcam *</label>
+      <input type="text" id="asalKorcam" readonly>
+    </div>
+
+    <div class="kanan">
+      <label>Nama Kepala Lembaga *</label>
+      <input type="text" placeholder="Muhammad Hafidz Al Fatih" id="namaKepala">
+
+      <label>Nama Perwakilan *</label>
+      <input type="text" placeholder="Nama Perwakilan" id="perwakilan">
+
+      <label>No HP Perwakilan *</label>
+      <input type="text" placeholder="08xxxx" id="hp">
+    </div>
+  </div>
+
+  <h3 class="daftarSantri">DAFTAR SANTRI *</h3>
+  <thead>
+  <div class="table-wrapper">
+      <table id="tabelData">
+          <tr>
+            <th style="min-width:50px">No</th>
+            <th style="min-width:200px">Nama Santri *</th>
+            <th style="min-width:120px">Tempat Lahir *</th>
+            <th style="min-width:120px">Tanggal Lahir *</th>
+            <th style="min-width:60px">JK *</th>
+            <th style="min-width:250px">Alamat Lengkap *</th>
+            <th style="min-width:120px">Kab/Kota *</th>
+            <th style="min-width:150px">Nama Ayah *</th>
+            <th style="min-width:150px">Nama Ibu *</th>
+            <th style="min-width:120px">No HP *</th>
+            <th style="min-width:70px">Kelas *</th>
+            <th style="min-width:70px">Kelompok</th>
+            <th style="min-width:60px">Hapus</th>
+          </tr>
+        <tbody id="tabelSantriBody"></tbody>
+      </table>
+  </div>
+  </thead>
+
+      <button class="tambahSantri" onclick="tambahBaris()">+ Tambah Santri</button>
+      <button class="simpanData" onclick="simpan()">Simpan Data</button>
+      <div id="loading" style="display: none; margin-top:10px; text-align:center;">Loading... ⏳</div>
+</div> <!-- tutup container-form -->
+
+<script>
+//... JS dataLembaga kamu tetep sama, nggak usah diubah...
+const dataArray = [
+ {"id": "K-2009-001","nama": "TPQ Baitul Jannah","korcam": "Kandangan" },
+ {"id": "K-2010-004","nama": "TPQ Rohmatulloh","korcam": "Kandangan" },
+ {"id": "P-2011-006","nama": "TPQ Darul Falah","korcam": "Pare"},
+ {"id": "BK-2011-007","nama": "TPQ Nurul Ulum","korcam": "Badas-Kunjang"},
+ {"id": "P-2012-009","nama": "SDI An-Nahadl","korcam": "Pare"},
+ {"id": "P-2012-011","nama": "TPQ Al-Hikmah Pare","korcam": "Pare"},
+ {"id": "BK-2012-012","nama": "TPQ Darussalam","korcam": "Badas-Kunjang"},
+ {"id": "P-2013-018","nama": "TPQ Zainabiyah Tertek","korcam": "Pare"},
+ {"id": "G-2013-020","nama": "PTQ As-Salaam","korcam": "GNGPP"},
+ {"id": "G-2013-023","nama": "MI Bani Ridwan","korcam": "GNGPP"},
+ {"id": "P-2014-027","nama": "MI Muhammadiyah 1 Pare","korcam": "Pare"},
+ {"id": "PP-2014-028","nama": "SD Islam Modern NU Plemahan","korcam": "Papar-Plemahan"},
+ {"id": "G-2014-030","nama": "TPQ Bani Ridwan","korcam": "GNGPP"},
+ {"id": "P-2014-031","nama": "TPQ Ichlashul Amal","korcam": "Pare"},
+ {"id": "P-2015-037","nama": "SDIT Empat Mei","korcam": "Pare"},
+ {"id": "KP-2015-038","nama": "TPA Al Huda","korcam": "Kepung-Puncu"},
+ {"id": "BK-2016-043","nama": "MTs. Sabilil Muttaqin","korcam": "Badas-Kunjang"},
+ {"id": "BK-2016-047","nama": "TPQ Al-Ma'unah","korcam": "Badas-Kunjang"},
+ {"id": "KP-2017-055","nama": "TPQ Tarbiyatul Mubtadiin","korcam": "Kepung-Puncu"},
+ {"id": "K-2017-057","nama": "TPQ Al-Huda Klampisan","korcam": "Kandangan"},
+ {"id": "KP-2018-071","nama": "MI Nidhomiyah","korcam": "Kepung-Puncu"},
+ {"id": "K-2018-074","nama": "TPQ Nurul Iman","korcam": "Kandangan"},
+ {"id": "K-2018-076","nama": "TPQ Attaufiq","korcam": "Kandangan"},
+ {"id": "K-2019-087","nama": "TPQ Darussalam","korcam": "Kandangan"},
+ {"id": "K-2020-092","nama": "TPQ An-Nur","korcam": "Kandangan"},
+ {"id": "P-2020-094","nama": "MI Al Hidayah YPSM","korcam": "Pare"},
+ {"id": "G-2021-099","nama": "SD Nahdlatul Ulama","korcam": "GNGPP"},
+ {"id": "KP-2023-115","nama": "MI Darul Ulum","korcam": "Kepung-Puncu"},
+ {"id": "P-2025-121","nama": "TPQ At-Taqwa","korcam": "Pare"},
+ {"id": "BK-2025-131","nama": "MI Mashlahiyah","korcam": "Badas-Kunjang"},
+ {"id": "BK-2025-137","nama": "TPQ Baitut Tarbiyah","korcam": "Badas-Kunjang"},
+ {"id": "P-2025-148","nama": "TPQ Al-Azhar","korcam": "Pare"},
+ {"id": "Admin", "nama": "Cabang","korcam": "Cabang"}
+];
+
+const dataLembaga = {};
+dataArray.forEach(item => { dataLembaga[item.id] = {nama: item.nama, korcam: item.korcam}; });
+
+window.onload = function() {
+  let datalist = document.getElementById("daftarID");
+  for(let id in dataLembaga) {
+    datalist.innerHTML += `<option value="${id}">${id}</option>`;
+  }
+  tambahBaris();
+}
+
+document.getElementById("idLembaga").onchange = function() {
+  let id = this.value;
+  if(dataLembaga[id]) {
+    document.getElementById("namaLembaga").value = dataLembaga[id].nama;
+    document.getElementById("asalKorcam").value = dataLembaga[id].korcam;
+  } else {
+    document.getElementById("namaLembaga").value = "";
+    document.getElementById("asalKorcam").value = "";
+  }
+}
+
+let nomor = 0;
+function tambahBaris(){
+   nomor++;
+   let tbody = document.getElementById("tabelSantriBody");
+   let baris = tbody.insertRow();
+   baris.id = "baris" + nomor;
+
+   baris.innerHTML = `
+    <td style="text-align:center;">${nomor}</td>
+    <td><input type="text" class="nama" placeholder="Nama Santri"></td>
+    <td><input type="text" class="tempatLahir" placeholder="Tempat Lahir"></td>
+    <td><input type="date" class="tglLahir"></td>
+    <td><select class="jk"><option value="">-</option><option value="L">L</option><option value="P">P</option></select></td>
+    <td><input type="text" class="alamat" placeholder="Alamat Lengkap"></td>
+    <td><input type="text" class="kabupaten" placeholder="Kabupaten/Kota"></td>
+    <td><input type="text" class="namaAyah" placeholder="Nama Ayah"></td>
+    <td><input type="text" class="namaIbu" placeholder="Nama Ibu"></td>
+    <td><input type="text" class="noHp" placeholder="08xxxx"></td>
+    <td><input type="number" min="1" max="12" class="kelas" oninput="isiKelompok(this)" placeholder="1-12" style="text-align:center;"></td>
+    <td style="text-align:center;"><input type="text" class="kelompok" readonly style="background:#f9f9f9; font-weight:600; text-align:center;"></td>
+    <td style="text-align:center;"><button class="btn-hapus" onclick="hapusBaris(this)">🗑️</button></td>
+   `;
+}
+
+function isiKelompok(elKelas) {
+  let baris = elKelas.closest('tr');
+  let kelas = parseInt(elKelas.value);
+  let kelompok = baris.querySelector('.kelompok');
+  if(kelas >= 1 && kelas <= 3) { kelompok.value = "A"; kelompok.style.background = "#e8f5e9"; }
+  else if(kelas >= 4 && kelas <= 6) { kelompok.value = "B"; kelompok.style.background = "#fff3e0"; }
+  else if(kelas >= 7 && kelas <= 12) { kelompok.value = "C"; kelompok.style.background = "#e3f2fd"; }
+  else { kelompok.value = ""; kelompok.style.background = "#f9f9f9"; }
+}
+
+function hapusBaris(btn) {
+  btn.closest('tr').remove();
+  renumber();
+}
+
+function renumber() {
+  let rows = document.querySelectorAll('#tabelSantriBody tr');
+  rows.forEach((row, i) => {
+    row.cells[0].innerText = i+1;
+    row.id = "baris" + (i+1);
+  });
+  nomor = rows.length;
+}
+
+function hapusError() {
+  document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+  document.querySelectorAll('.error-cell').forEach(el => el.classList.remove('error-cell'));
+}
+
+// 5. VALIDASI WAJIB ISI SEMUA
+function simpan() {
+  hapusError();
+  let adaError = false;
+
+  // Validasi Lembaga
+  let fieldsLembaga = ['idLembaga', 'namaLembaga', 'asalKorcam', 'namaKepala', 'perwakilan', 'hp'];
+  fieldsLembaga.forEach(id => {
+    let el = document.getElementById(id);
+    if(!el.value.trim()) { el.classList.add('error'); adaError = true; }
+  });
+
+  // Validasi HP harus angka
+  let hp = document.getElementById('hp');
+  if(hp.value &&!/^[0-9]{10,15}$/.test(hp.value.trim())) {
+    hp.classList.add('error'); adaError = true; alert('No HP harus angka 10-15 digit!');
+  }
+
+  // Validasi Santri
+  let barisSantri = document.querySelectorAll('#tabelSantriBody tr');
+  if(barisSantri.length == 0) { alert('Minimal 1 santri!'); adaError = true; }
+
+  barisSantri.forEach((baris) => {
+    let nama = baris.querySelector('.nama');
+    let tempat = baris.querySelector('.tempatLahir');
+    let tgl = baris.querySelector('.tglLahir');
+    let jk = baris.querySelector('.jk');
+    let alamat = baris.querySelector('.alamat');
+    let kab = baris.querySelector('.kabupaten');
+    let ayah = baris.querySelector('.namaAyah');
+    let ibu = baris.querySelector('.namaIbu');
+    let noHpSantri = baris.querySelector('.noHp');
+    let kelas = baris.querySelector('.kelas');
+
+    if(!nama.value.trim()) { nama.classList.add('error'); adaError = true; }
+    if(!tempat.value.trim()) { tempat.classList.add('error'); adaError = true; }
+    if(!tgl.value) { tgl.classList.add('error'); adaError = true; }
+    if(!jk.value) { jk.classList.add('error'); adaError = true; }
+    if(!alamat.value.trim()) { alamat.classList.add('error'); adaError = true; }
+    if(!kab.value.trim()) { kab.classList.add('error'); adaError = true; }
+    if(!ayah.value.trim()) { ayah.classList.add('error'); adaError = true; }
+    if(!ibu.value.trim()) { ibu.classList.add('error'); adaError = true; }
+    if(!noHpSantri.value.trim()) { noHpSantri.classList.add('error'); adaError = true; }
+
+    let valKelas = parseInt(kelas.value);
+    if(!kelas.value || valKelas < 1 || valKelas > 12 || isNaN(valKelas)) {
+      kelas.parentElement.classList.add('error-cell'); adaError = true;
+    }
+  });
+
+  if(adaError) {
+    alert('⚠️ Ada data yang masih kosong/merah. Tolong dilengkapi dulu ya!');
+    return;
+  }
+
+  // Kalo lolos validasi, lanjut kirim
+  let dataLembaga = {
+    idLembaga: document.getElementById('idLembaga').value,
+    nama: document.getElementById('namaLembaga').value,
+    korcam: document.getElementById('asalKorcam').value,
+    namaKepala: document.getElementById('namaKepala').value,
+    namaPerwakilan: document.getElementById('perwakilan').value,
+    noHp: document.getElementById('hp').value
+  };
+
+  let santri = [];
+  document.querySelectorAll('#tabelSantriBody tr').forEach((row, i) => {
+    santri.push({
+      no: i+1,
+      nama: row.querySelector('.nama').value,
+      tempatLahir: row.querySelector('.tempatLahir').value,
+      tglLahir: row.querySelector('.tglLahir').value,
+      jk: row.querySelector('.jk').value,
+      alamat: row.querySelector('.alamat').value,
+      kabKota: row.querySelector('.kabupaten').value,
+      namaAyah: row.querySelector('.namaAyah').value,
+      namaIbu: row.querySelector('.namaIbu').value,
+      noHP: row.querySelector('.noHp').value,
+      kelas: row.querySelector('.kelas').value,
+      kelompok: row.querySelector('.kelompok').value,
+      timestamp: new Date().toLocaleString('id-ID', {timeZone: 'Asia/Jakarta'})
+    });
+  });
+
+  let payload = {lembaga: dataLembaga, santri: santri};
+  let urlAppsScript = 'https://script.google.com/macros/s/AKfycbxU0enxh4qXVUH4Ri6SYYNVx5hrGQegH8PfnRXygmRilyZiO3UMcSlX5JvMuZaXUVPWgw/exec';
+
+  document.getElementById('loading').style.display = 'block';
+
+  fetch(urlAppsScript, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(payload)
+  })
+ .then(() => {
+    document.getElementById('loading').style.display = 'none';
+    tampilkanSukses(dataLembaga.nama, santri.length);
+  })
+ .catch(err => {
+    document.getElementById('loading').style.display = 'none';
+    alert('❌ Gagal nyimpen: ' + err);
+  });
+}
+
+//... fungsi modal kamu tetep sama...
+function tampilkanSukses(namaLembaga, jumlahSantri) {
+  document.getElementById('isiKonfirmasi').innerHTML =
+    `Lembaga: <b>${namaLembaga}</b><br>Jumlah Santri: <b>${jumlahSantri} orang</b><br>Silakan screenshoot dan konfirmasi ke Tim Munaqosyah Santri 2026<br><br>Jazakumullohu Khoiron Katsiir!`;
+  document.getElementById('modalSukses').style.display = 'flex';
+}
+function tutupModal() {
+  document.getElementById('modalSukses').style.display = 'none';
+  document.getElementById('idLembaga').value = '';
+  document.getElementById('namaLembaga').value = '';
+  document.getElementById('asalKorcam').value = '';
+  document.getElementById('namaKepala').value = '';
+  document.getElementById('perwakilan').value = '';
+  document.getElementById('hp').value = '';
+  document.getElementById('tabelSantriBody').innerHTML = '';
+  nomor = 0;
+  tambahBaris();
+}
+</script>
+
+<div id="modalSukses" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:white; padding:35px 25px; border-radius:15px; max-width:420px; text-align:center; animation: fadeIn 0.3s;">
+    <div style="font-size:60px;">✅</div>
+    <h3 style="color:#28a745; margin:0 0 15px 0;">DATA TELAH TERSIMPAN</h3>
+    <p id="isiKonfirmasi"></p>
+    <button onclick="tutupModal()" style="margin-top:20px; background:#28a745; color:white; border:none; padding:10px 25px; border-radius:8px; cursor:pointer; font-weight:bold;">Oke</button>
+  </div>
+</div>
+<style>@keyframes fadeIn { from{opacity:0; transform:scale(0.9)} to{opacity:1; transform:scale(1)} }</style>
+
+</body>
+</html>
